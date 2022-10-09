@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Count App</title>
+    <style>
+       body {
+    box-sizing: border-box;
+    background: rgba(169, 169, 169, 0.503);
+}
+
+h1,
+footer {
+    text-align: center;
+    color: rgb(108, 108, 108);
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 18em;
+}  
+
+textarea {
+    min-height: 15em;
+    min-width: 50em;
+    padding: 1em;
+    border-radius: .7em .7em 0 0;
+}
+
+#container p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3em;
+    background: #284bad;
+    border-radius: 0 0 .7em .7em ;
+    margin-top: -1px;
+    min-width: 17.5em;
+    color: aqua;
+    font-size: 30px;
+}
+
+textarea:focus {
+    border-left: 2px solid rgb(67, 160, 71);
+    border-top: 2px solid rgb(67, 160, 71);
+    border-right: 2px solid rgb(67, 160, 71);
+}
+
+#container span {
+    color: white;
+    font-weight: bold;
+    margin: 5px;
+    font-size: 50px;
+} 
+    </style>
+
+
+    
+</head>
+<body>
+    <h1>Word Count App</h1>
+  <div id="container">
+    <textarea placeholder="Type or paste your word here..."></textarea>  
+    <p><span id="wordNum">0 </span> words, <span id="charNum">0 </span> characters </p>    
+  </div>
+  <script>function renderText(domElt, text) {
+    domElt.innerText = text;
+}
+
+function handleWord(text) {
+    const textArr = text.split(" ");
+    let wordCount = 0;
+
+    for(word of textArr) {
+        if(/[a-zA-Z0-9]/.test(word)) {
+            wordCount += 1;
+        }
+    }
+
+    return wordCount;      
+
+}
+
+function handleChar(text) {
+   return text.length;     
+}
+
+function init() {
+    const textArea = document.querySelector('textarea')
+    const charDOM = document.querySelector('#charNum')
+    const wordDOM = document.querySelector('#wordNum')
+
+    
+    textArea.addEventListener("input", event => {
+        const text = event.target.value.trim();
+        
+        // get word count and char count and render them
+        renderText(wordDOM, handleWord(text));
+        renderText(charDOM, handleChar(text));       
+
+    });
+}
+
+init();
+</script>
+</body>
+</html>
